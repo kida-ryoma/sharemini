@@ -11,7 +11,9 @@
   - @posts.each do |post|
     .post
       .post__content
+        = "#{post.user.name}(#{post.created_at.in_time_zone("Tokyo").strftime("%Y/%m/%d %H:%M:%S")}) : "
         = post.content
+        %br
 
 
 
