@@ -1,7 +1,18 @@
+- if user_signed_in?
+  %img.icon-image{ src: "#{@user.image}" }
+  %p #{@user.name}さんでログイン中
+  = link_to "投稿作成ページへ", new_post_path
+  = link_to "ログアウト" , destroy_user_session_path, method: :delete
+- else
+  = link_to "ユーザー登録ページへ", new_user_registration_path
+  = link_to "ログイン" , user_session_path, method: :post
+
 .all-posts
   - @posts.each do |post|
     .post
       .post__content
         = post.content
 
-= link_to "投稿作成ページへ", new_post_path
+
+
+
