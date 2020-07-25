@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!, expect: :index
   def index
     @posts = Post.all
     @user = current_user
@@ -21,6 +22,6 @@ class PostsController < ApplicationController
   private
 
   def set_params
-    params.require(:post).permit(:content)
+    params.require(:post).permit(:content).merge(user_id: current_user.id)
   end
 end
