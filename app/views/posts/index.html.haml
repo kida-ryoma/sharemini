@@ -1,0 +1,7 @@
+.all-posts
+  - @posts.each do |post|
+    .post
+      .post__content
+        = post.content
+
+= link_to "投稿作成ページへ", new_post_path
