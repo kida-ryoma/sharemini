@@ -6,4 +6,5 @@ Rails.application.routes.draw do
       post "create_favorite"
     end
   end
+  resources :users, only: [:show, :edit, :update]
 end
