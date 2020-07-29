@@ -3,4 +3,5 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :favorites
   belongs_to :category
+  has_many :comments
 end

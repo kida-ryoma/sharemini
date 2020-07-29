@@ -12,7 +12,8 @@
     .post
       = link_to "#{post.user.name}", user_path(post.user.id)
       = "(#{post.created_at.in_time_zone("Tokyo").strftime("%Y/%m/%d %H:%M:%S")}) : "
-      = post.content
+      = link_to "#{post.content}", post_path(post)
+      = post.category.category_name
       %span 
         = link_to create_favorite_post_path(post) ,action: "#{create_favorite_post_path(post)}", id: "post#{post.id}", class: "get_fav", remote: true, data: {post_id: post.id} ,method: :post do
           = icon("fas", "heart", class: "fav-btn")
