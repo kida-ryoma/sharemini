@@ -17,4 +17,5 @@
         = link_to create_favorite_post_path(post) ,action: "#{create_favorite_post_path(post)}", id: "post#{post.id}", class: "get_fav", remote: true, data: {post_id: post.id} ,method: :post do
           = icon("fas", "heart", class: "fav-btn")
           = "#{post.favorites.count}"
+          
       %br
