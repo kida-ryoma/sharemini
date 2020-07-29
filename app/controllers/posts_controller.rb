@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, expect: :index
-  before_action :set_post, only: :create_favorite 
+  before_action :set_post, only: [:create_favorite , :show]
   def index
     @posts = Post.all
     @user = current_user
@@ -8,6 +8,11 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+  end
+
+  def show
+    @comment = Comment.new
+    # @comments = @post.comments.includes(:user)
   end
 
   def create
@@ -31,7 +36,6 @@ class PostsController < ApplicationController
       @post.favorites.find_by(user_id: current_user.id).destroy
       redirect_to root_path
     end
-    #あとで既にお気に入り追加している場合の条件分岐を書く
   end
 
   private

@@ -1,0 +1,5 @@
+= "#{@post.content}"
+
+= form_with model: [@post,@comment], local: true do |f|
+  = f.text_area :text
+  = f.submit "SEND"
