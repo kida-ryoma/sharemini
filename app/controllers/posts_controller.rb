@@ -31,7 +31,6 @@ class PostsController < ApplicationController
       @post.favorites.find_by(user_id: current_user.id).destroy
       redirect_to root_path
     end
-
     #あとで既にお気に入り追加している場合の条件分岐を書く
   end
 

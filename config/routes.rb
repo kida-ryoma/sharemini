@@ -6,4 +6,11 @@ Rails.application.routes.draw do
       post "create_favorite"
     end
   end
+  resources :users, only: [:show, :edit, :update] do
+    member do
+      get :followings
+      get :followers
+    end
+  end
+  resources :relationships, only: [:create, :destroy]
 end
