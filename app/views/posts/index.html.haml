@@ -1,22 +1,9 @@
-- if user_signed_in?
-  %img.icon-image{ src: "#{@user.image}" }
-  %p #{@user.name}さんでログイン中
-  = link_to "投稿作成ページへ", new_post_path
-  = link_to "ログアウト" , destroy_user_session_path, method: :delete
-- else
-  = link_to "ユーザー登録ページへ", new_user_registration_path
-  = link_to "ログイン" , user_session_path, method: :post
+.wrapper
+  .form
+    = render partial: "form", locals: { post: @post}
 
-.all-posts
-  - @posts.each do |post|
-    .post
-      = link_to "#{post.user.name}", user_path(post.user.id)
-      = "(#{post.created_at.in_time_zone("Tokyo").strftime("%Y/%m/%d %H:%M:%S")}) : "
-      = link_to "#{post.content}", post_path(post)
-      = post.category.category_name
-      %span 
-        = link_to create_favorite_post_path(post) ,action: "#{create_favorite_post_path(post)}", id: "post#{post.id}", class: "get_fav", remote: true, data: {post_id: post.id} ,method: :post do
-          = icon("fas", "heart", class: "fav-btn")
-          = "#{post.favorites.count}"
-          
-      %br
+  .all-posts
+    - @posts.each do |post|
+      = render partial: "post", locals: { post: post}
+
+.footer

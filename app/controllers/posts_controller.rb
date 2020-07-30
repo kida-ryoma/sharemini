@@ -1,12 +1,10 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, expect: :index
   before_action :set_post, only: [:create_favorite , :show]
+  
   def index
-    @posts = Post.all
+    @posts = Post.includes(:user).order("created_at DESC")
     @user = current_user
-  end
-
-  def new
     @post = Post.new
   end
 
