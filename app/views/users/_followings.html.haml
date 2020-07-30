@@ -1,0 +1,5 @@
+- @followings.each do |following|
+  .following-info
+    = link_to  user_path(following.id) do
+      %img.icon-image{ src: "#{following.image}" }
+    = link_to "#{following.name}", user_path(following.id), class: "user_name"

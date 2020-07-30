@@ -1,26 +1,60 @@
-= "#{@user.name}さんのマイページ"
-%img.icon-image{ src: "#{@user.image}" }
+.user__contents
+  .user-info
+    %img.user-info__image{ src: "#{@user.image}" }
+    .user-info__name
+      = "#{@user.name}"
+    .user-info__follow
+      - unless current_user == @user
+        = render partial: "follow", locals: { user: @user }
 
-- unless current_user == @user
-  = render partial: "follow", locals: { user: @user }
+  .user-tab
+    .tab-panel
+      .group
+        %ul.tab-group
+          %li.tab.is-active 
+            投稿一覧
+          %li.tab
+            お気に入り一覧
+          %li.tab
+            フォローユーザー
+          %li.tab
+            フォロワーユーザー
+        .panel-group
+          .panel.is-show
+            .all-posts
+              = "#{@user.name}さんの投稿一覧"
+              - @posts.each do |post|
+                = render partial: "/posts/post", locals: { post: post}
+          .panel
+            .all-posts_fav
+              = "#{@user.name}さんがいいねした投稿一覧"
+              - @fav_posts.each do |post|
+                .post
+                  .post__head
+                    = link_to  user_path(post.post.user.id) do
+                      %img.icon-image{ src: "#{post.post.user.image}" }
+                    = link_to "#{post.post.user.name}", user_path(post.post.user.id), class: "user_name"
+                    .time
+                      = "(#{post.post.created_at.in_time_zone("Tokyo").strftime("%Y/%m/%d %H:%M:%S")})"
+                  .post__content
+                    = link_to "#{post.post.content}", post_path(post.post), class: "content"
+                    .post__content__bottom
+                      = post.post.category.category_name
+                      %span 
+                        = link_to create_favorite_post_path(post.post) ,action: "#{create_favorite_post_path(post.post)}", id: "post#{post.post.id}", class: "get_fav", remote: true, data: {post_id: post.post.id} ,method: :post do
+                          = icon("fas", "heart", class: "fav-btn")
+                          = "#{post.post.favorites.count}"
+                      %br
+          .panel
+            .followings
+              = "#{@user.name}さんがフォローしているユーザー一覧"
+              = render partial: "followings", locals: { followings: @followings}
+          .panel
+            .followers
+              = "#{@user.name}さんをフォローしているユーザー一覧"
+              = render partial: "followers", locals: { followers: @followers}
+            
 
-.all-posts
-  = "#{@user.name}さんの投稿一覧"
-  - @posts.each do |post|
-    = render partial: "/posts/post", locals: { post: post}
+    
 
-.all-posts_fav
-  = "#{@user.name}さんがいいねした投稿一覧"
-  - @fav_posts.each do |post|
-    .post
-      = link_to "#{post.user.name}", user_path(post.user.id)
-      = "(#{post.post.created_at.in_time_zone("Tokyo").strftime("%Y/%m/%d %H:%M:%S")}) : "
-      = post.post.content
-      %span 
-        = link_to create_favorite_post_path(post.post) ,action: "#{create_favorite_post_path(post.post)}", id: "post#{post.post.id}", class: "get_fav", remote: true, data: {post_id: post.post.id} ,method: :post do
-          = icon("fas", "heart", class: "fav-btn")
-          = "#{post.post.favorites.count}"
-      %br
-
-= link_to "トップページに戻る", root_path
 
