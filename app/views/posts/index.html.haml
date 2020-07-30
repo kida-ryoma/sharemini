@@ -1,6 +1,9 @@
 .wrapper
-  .form
-    = render partial: "form", locals: { post: @post}
+  .side_bar
+    .form
+      = render partial: "form", locals: { post: @post}
+    .categories
+      = render partial: "category"
 
   .all-posts
     - @posts.each do |post|

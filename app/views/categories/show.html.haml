@@ -1,0 +1,11 @@
+.categories
+  .wrapper
+    .side_bar
+      .form
+        = render partial: "posts/form", locals: { post: @post}
+      .categories
+        = render partial: "posts/category"
+
+    .all-posts
+      - @category_posts.each do |post|
+        = render partial: "posts/post", locals: {post: post }
