@@ -1,8 +1,17 @@
-= render partial: "/posts/post", locals: { post: @post}
-- if @post.comments.any?
-  - @post.comments.each do |comment|
-    = "#{comment.text}"
-
-= form_with model: [@post,@comment], local: true do |f|
-  = f.text_area :text
-  = f.submit "SEND"
+.post-show
+  = render partial: "/posts/post", locals: { post: @post}
+  .comment
+    - if @post.comments.any?
+      - @post.comments.each do |comment|
+        .comment__info
+          = link_to  user_path(comment.user.id) do
+            %img.icon-image{ src: "#{comment.user.image}" }
+          = link_to "#{comment.user.name}", user_path(comment.user.id), class: "user_name"
+          .comment__text
+            = "#{comment.text}"
+            .time
+              = "(#{comment.created_at.in_time_zone("Tokyo").strftime("%Y/%m/%d %H:%M:%S")}) "
+  .comment-form
+    = form_with model: [@post,@comment], local: true do |f|
+      = f.text_area :text
+      = f.submit "SEND"
