@@ -1,12 +1,10 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, expect: :index
   before_action :set_post, only: [:create_favorite , :show]
+  
   def index
     @posts = Post.all
     @user = current_user
-  end
-
-  def new
     @post = Post.new
   end
 

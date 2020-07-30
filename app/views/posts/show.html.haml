@@ -1,4 +1,7 @@
-= "#{@post.content}"
+= render partial: "/posts/post", locals: { post: @post}
+- if @post.comments.any?
+  - @post.comments.each do |comment|
+    = "#{comment.text}"
 
 = form_with model: [@post,@comment], local: true do |f|
   = f.text_area :text

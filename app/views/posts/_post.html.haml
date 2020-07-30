@@ -1,0 +1,16 @@
+.post
+  .post__head
+    = link_to  user_path(post.user.id) do
+      %img.icon-image{ src: "#{post.user.image}" }
+    = link_to "#{post.user.name}", user_path(post.user.id), class: "user_name"
+    .time
+      = "(#{post.created_at.in_time_zone("Tokyo").strftime("%Y/%m/%d %H:%M:%S")}) "
+  .post__content
+    = link_to "#{post.content}", post_path(post), class: "content"
+    .post__content__bottom
+      = post.category.category_name
+      %span 
+        = link_to create_favorite_post_path(post) ,action: "#{create_favorite_post_path(post)}", id: "post#{post.id}", class: "get_fav", remote: true, data: {post_id: post.id} ,method: :post do
+          = icon("fas", "heart", class: "fav-btn")
+          = "#{post.favorites.count}"      
+      %br

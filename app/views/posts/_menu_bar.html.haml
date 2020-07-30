@@ -1,0 +1,11 @@
+.nav-bar
+  .logo
+    = link_to "Share Your Minimalizm" ,root_path
+  .menu
+    %ul
+      %li.menu__item
+        = link_to "投稿を見る" ,root_path
+      %li.menu__item
+        = link_to "#{current_user.name}" , user_path(current_user)
+      %li.menu__item
+        = link_to "ログアウト" , destroy_user_session_path, method: :delete

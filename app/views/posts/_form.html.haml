@@ -1,0 +1,5 @@
+= form_with model: post, local: true do |f|
+  = f.text_area :content, placeholder: "投稿する", class: 'input-content'
+  = f.label :category_id, "カテゴリー", class: 'category'
+  = f.collection_select :category_id, Category.all, :id, :category_name
+  = f.submit "SEND", class: 'send'
