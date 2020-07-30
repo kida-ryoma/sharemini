@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user
   def show
-    @posts = @user.posts
-    @fav_posts = Favorite.where(user_id: @user.id)
+    @posts = @user.posts.order("created_at DESC")
+    @fav_posts = Favorite.where(user_id: @user.id).order("created_at DESC")
     @followings = @user.followings
     @followers = @user.followers
   end

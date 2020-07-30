@@ -1,5 +1,8 @@
 = form_with model: post, local: true do |f|
   = f.text_area :content, placeholder: "投稿する", class: 'input-content'
+  = f.label :image, class:"input-image" do
+    = icon("far", "image", class: "image-icon")
+    = f.file_field :image, class: "Hidden"
   = f.label :category_id, "カテゴリー", class: 'category'
   = f.collection_select :category_id, Category.all, :id, :category_name
   = f.submit "SEND", class: 'send'
