@@ -5,7 +5,10 @@
       - @post.comments.each do |comment|
         .comment__info
           = link_to  user_path(comment.user.id) do
-            %img.icon-image{ src: "#{comment.user.image}" }
+            - if comment.user.image?
+              %img.icon-image{ src: "#{comment.user.image}" }
+            - else
+              %image.icon-image{ src: "/assets/default_user.png"}
           = link_to "#{comment.user.name}", user_path(comment.user.id), class: "user_name"
           .comment__text
             = "#{comment.text}"

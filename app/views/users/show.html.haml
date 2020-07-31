@@ -1,6 +1,9 @@
 .user__contents
   .user-info
-    %img.user-info__image{ src: "#{@user.image}" }
+    - if @user.image?
+      %img.user-info__image{ src: "#{@user.image}" }
+    - else
+      %image.user-info__image{ src: "/assets/default_user.png"}
     .user-info__name
       = "#{@user.name}"
     .user-info__follow
