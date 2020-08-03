@@ -4,5 +4,5 @@
       - if following.image?
         %img.icon-image{ src: "#{following.image}" }
       - else
-        %image.icon-image{ src: "default_user.png"}
+        %image.icon-image{ src: "/assets/default_user.png"}
     = link_to "#{following.name}", user_path(following.id), class: "user_name"
