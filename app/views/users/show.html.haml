@@ -1,6 +1,9 @@
 .user__contents
   .user-info
-    %img.user-info__image{ src: "#{@user.image}" }
+    - if @user.image?
+      %img.user-info__image{ src: "#{@user.image}" }
+    - else
+      %image.user-info__image{ src: "/assets/default_user.png"}
     .user-info__name
       = "#{@user.name}"
     .user-info__follow
@@ -32,7 +35,10 @@
                 .post
                   .post__head
                     = link_to  user_path(post.post.user.id) do
-                      %img.icon-image{ src: "#{post.post.user.image}" }
+                      - if post.post.user.image?
+                        %img.icon-image{ src: "#{post.post.user.image}" }
+                      - else
+                        %image.icon-image{ src: "/assets/default_user.png"}
                     = link_to "#{post.post.user.name}", user_path(post.post.user.id), class: "user_name"
                     .time
                       = "(#{post.post.created_at.in_time_zone("Tokyo").strftime("%Y/%m/%d %H:%M:%S")})"
@@ -40,7 +46,8 @@
                     = link_to  post_path(post.post) do
                       .content
                         = "#{post.post.content}"
-                      %img.post__content__image{ src: "#{post.post.image}" }
+                      -if post.post.image?
+                        %img.post__content__image{ src: "#{post.post.image}" }
                     .post__content__bottom
                       = post.post.category.category_name
                       %span 

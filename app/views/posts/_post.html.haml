@@ -1,7 +1,10 @@
 .post
   .post__head
     = link_to  user_path(post.user.id) do
-      %img.icon-image{ src: "#{post.user.image}" }
+      - if post.user.image?
+        %img.icon-image{ src: "#{post.user.image}" }
+      - else
+        %image.icon-image{ src: "/assets/default_user.png"}
     = link_to "#{post.user.name}", user_path(post.user.id), class: "user_name"
     .time
       = "(#{post.created_at.in_time_zone("Tokyo").strftime("%Y/%m/%d %H:%M:%S")}) "
@@ -9,7 +12,8 @@
     = link_to  post_path(post) do
       .content
         = "#{post.content}"
-      %img.post__content__image{ src: "#{post.image}" }
+      -if post.image?
+        %img.post__content__image{ src: "#{post.image}" }
     .post__content__bottom
       = post.category.category_name
       %span 
