@@ -73,3 +73,5 @@ gem "mini_magick"
 
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
+
+gem "fog-aws"
